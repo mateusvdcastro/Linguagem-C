@@ -1,5 +1,12 @@
 #include <stdio.h>
 
+/*Programa que estima quantos alunos podem ficar dentro de uma sala de
+aula. Para evitar o contato, é preciso respeitar distância mínima entre as cadeiras,
+de 1,0m a 1,5 m. Neste cenário, é necessário garantir pelo menos 2,25m2 por aluno.
+O usuário deve informar a largura e comprimento do local. Considere a área
+retangular.
+Mateus Vespasiano de Castro RA: 2248751*/
+
 int main(void){
     float comprimento, largura, area, alunos;
 

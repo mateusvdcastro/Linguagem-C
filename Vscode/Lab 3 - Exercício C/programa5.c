@@ -1,5 +1,9 @@
 #include <stdio.h>
 
+/*Programa para classificar um triângulo. Informe os tamanhos dos segmentos e
+classifique de acordo com equilátero, isósceles e escaleno.
+Mateus Vespasiano de Castro RA: 2248751*/
+
 int main(){
     float s1, s2, s3;
 

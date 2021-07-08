@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <math.h>
 
+/*Faça um programa que calcule a velocidade v(t) e a altura do lançamento h(t) no instante t de uma bola arremessada para cima numa velocidade v0, onde a resistência do ar é desprezada
+Mateus Vespasiano de Castro RA: 2248751*/
+
 int main(){
     float t, v0, v, g=9.8, h;
 

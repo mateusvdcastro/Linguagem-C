@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <math.h>
 
+/*Faça um programa que calcule a área de um trapézio ou o volume de uma pirâmide.
+O usuário deverá escolher a opção e informar os valores necessários. Considere:
+Mateus Vespasiano de Castro RA: 2248751*/
+
 int main(){
     float B, b, h, A, V, a;
     char escolha;

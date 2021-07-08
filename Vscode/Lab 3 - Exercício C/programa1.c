@@ -1,5 +1,8 @@
 #include <stdio.h>
 
+//Programa para calcular o consumo médio de combustível
+// Mateus Vespasiano de Castro RA: 2248751//
+
 int main(void){
     float distancia, litros, consumo;
 
