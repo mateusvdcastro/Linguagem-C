@@ -41,7 +41,7 @@ for (i=0; i<3;i++){
     }
     printf("]\n");
 }
-printf("\nA matriz C 2x2: \n");
+printf("\nA matriz C 3x4: \n");
 for (i=0; i<3;i++){
     printf("[");
     for(j=0; j<4; j++){
