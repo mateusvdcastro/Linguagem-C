@@ -12,33 +12,31 @@ Mateus Vespasiano de Castro RA: 159505
 */
 
 
-#include <stdio.h>  
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>  
 
 int main(){           
     char cargo[100];              
-    float sal, sal_novo;    
-    sal = 0;                         
-    sal_novo = 0;                                           
+    float sal=0, sal_novo=0;                                            
 
     printf("Informe o cargo: ");
     fgets(cargo, 100, stdin);      
     printf("Informe o salario: ");
     scanf("%f", &sal);               
     printf("%s\n", cargo);
-    if (cargo == "Gerente" || cargo == "gerente"){                          
+    if ((strcmp("Gerente", cargo)) == 0 || (strcmp("gerente", cargo)) ==0){                          
         sal_novo = sal + (sal*0.1);         
         printf("Novo salario: %.2f\nSalario antigo: %.2f\nAumento de: %.2f", sal_novo, sal, sal_novo-sal);
-    }  else if (cargo == "Engenheiro" || cargo == "engenheiro"){ 
+    } else if ((strcmp("Engenheiro", cargo))==0 || (strcmp("engenheiro", cargo))==0){ 
         sal_novo = sal + (sal*0.2);       
-        printf("Novo salario: %.2f\n salario antigo: %.2f, aumento de: %.2f", sal_novo, sal, sal_novo-sal);
-    }   
-    else if (cargo == "Auxiliar" || cargo == "auxiliar"){ 
+        printf("Novo salario: %.2f\nSalario antigo: %.2f\nAumento de: %.2f", sal_novo, sal, sal_novo-sal);
+    } else if ((strcmp("Auxiliar", cargo))==0 || (strcmp("auxiliar", cargo))==0){
         sal_novo = sal + (sal*0.3);
-        printf("Novo salario: %.2f\n salario antigo: %.2f, aumento de: %.2f", sal_novo, sal, sal_novo-sal);           
-    }   
-    else{
+        printf("Novo salario: %.2f\nSalario antigo: %.2f\nAumento de: %.2f", sal_novo, sal, sal_novo-sal);           
+    } else {
         sal_novo = sal + (sal*0.4);       
-        printf("Novo salario: %.2f\n salario antigo: %.2f, aumento de: %.2f", sal_novo, sal, sal_novo-sal);
+        printf("Novo salario: %.2f\nSalario antigo: %.2f\nAumento de: %.2f", sal_novo, sal, sal_novo-sal);
     }
     return 0;
 }
