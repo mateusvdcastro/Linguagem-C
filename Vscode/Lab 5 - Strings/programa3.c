@@ -21,7 +21,7 @@ int main(){
     float sal=0, sal_novo=0;                                            
 
     printf("Informe o cargo: ");
-    fgets(cargo, 100, stdin);      
+    scanf("%s", &cargo);      
     printf("Informe o salario: ");
     scanf("%f", &sal);               
     printf("%s\n", cargo);
