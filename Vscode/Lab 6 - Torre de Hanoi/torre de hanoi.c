@@ -7,15 +7,14 @@ Mateus Vespasiano de Castro
 
 #include <stdio.h>
 
-
-void move_disco(int d, char ori, char dest, char aux){
+void move_disco(int discos, char origem, char destino, char auxiliar){
     
-    if (d==1){
-        printf("\nMover disco %d de %c para %c", d, ori, dest);
+    if (discos==1){
+        printf("\nMover disco %d de %c para %c", discos, origem, destino);
     } else{
-        move_disco(d-1, ori, aux, dest);
-        printf("\nMover disco %d de %c para %c", d, ori, dest);
-        move_disco(d-1, aux, dest, ori);
+        move_disco(discos-1, origem, auxiliar, destino);
+        printf("\nMover disco %d de %c para %c", discos, origem, destino);
+        move_disco(discos-1, auxiliar, destino, origem);
     }
 }
 
@@ -29,4 +28,3 @@ int main(void){
 
     return 0;
 }
-
