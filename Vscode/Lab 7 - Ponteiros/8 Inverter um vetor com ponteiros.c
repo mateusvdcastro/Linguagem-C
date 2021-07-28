@@ -2,14 +2,11 @@
 #include <stdlib.h>
 
 void inverte(int *v, int t){
-    int i, *aux;
-    int cont = 0;
-    for (i = t-1; i >=0; i--){
-        aux = &v[i];
-        printf("Endereco: v[%d] = %i ", i+1, aux);
-        printf("Valor do endereco: %i \n", *aux);
-    }
-    return v;
+    int i;
+    for(i=t-1; i>=0; i--)
+		{
+			printf("v[%d] = %d ", i+1,*(v+i));
+		}
 }
 
 int main(){
@@ -28,10 +25,5 @@ int main(){
 
     printf("\n");
     inverte(vet, t);
-
-    printf("\n");
-    for (i=0; i< t; i++){
-        printf("v[%d] = %d ", i+1, vet[i]);  
-    }
 
 }
