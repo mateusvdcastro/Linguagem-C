@@ -1,3 +1,8 @@
+/*
+Escreva uma função que receba dois registros do tipo data, cada um representando uma data válida, e devolva o
+número de dias que decorreram entre as duas datas.
+Mateus Vespasiano de Castro
+*/
 #include <stdio.h> 
 #include <stdbool.h> 
 
@@ -37,7 +42,7 @@ bool valida(struct dma data) {
     int dias_decorridos(struct dma data_ini, struct dma data_fim) { 
         float dias_no_mes[13]={0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}, tot_dias_ini, tot_dias_fim;
         int i;
-        
+
         tot_dias_ini = data_ini.ano * 365.2425;
 
         for (i=1; i<data_ini.mes; i++){
