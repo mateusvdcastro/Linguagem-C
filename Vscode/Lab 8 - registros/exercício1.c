@@ -3,6 +3,7 @@ Escreva uma função que receba dois registros do tipo data, cada um representan
 número de dias que decorreram entre as duas datas.
 Mateus Vespasiano de Castro
 */
+
 #include <stdio.h> 
 #include <stdbool.h> 
 
@@ -13,7 +14,6 @@ struct dma {
 }; 
 
 bool valida(struct dma data) { 
-    /* retorna true se data válida ou false se inválida */ 
     if (data.mes < 1 || data.mes > 12) 
         return false; 
     else {
@@ -22,18 +22,18 @@ bool valida(struct dma data) {
                 if (data.dia < 1 || data.dia > 29) 
                     return false; 
                 } 
-                else 
-                    if (data.dia < 1 || data.dia > 28) 
-                        return false; 
+            else 
+                if (data.dia < 1 || data.dia > 28) 
+                    return false; 
                 } 
         else {
             if (data.mes == 4 || data.mes == 6 || data.mes == 9 || data.mes == 11) {
                 if (data.dia < 1 || data.dia > 30) 
                     return false; 
                 } 
-                else 
-                    if (data.dia < 1 || data.dia > 31) 
-                    return false; 
+            else 
+                if (data.dia < 1 || data.dia > 31) 
+                return false; 
             } 
         }    
         return true; 
