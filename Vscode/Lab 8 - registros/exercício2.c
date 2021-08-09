@@ -2,7 +2,7 @@
 Escreva uma função que receba um número inteiro que representa um intervalo de tempo medido em minutos e
 devolva o correspondente número de horas e minutos (por exemplo, converte 131 minutos em 2 horas e 11
 minutos).
-Mateus Vespasiano de Castro
+Mateus Vespasiano de Castro RA: 159505
 */
 
 #include <stdio.h>

@@ -1,7 +1,7 @@
 /*
 Escreva uma função que receba dois registros do tipo data, cada um representando uma data válida, e devolva o
 número de dias que decorreram entre as duas datas.
-Mateus Vespasiano de Castro
+Mateus Vespasiano de Castro RA: 159505
 */
 
 #include <stdio.h> 
@@ -11,7 +11,11 @@ struct dma {
     int dia; 
     int mes; 
     int ano; 
-}; 
+};
+struct dma x; 
+struct dma y;
+typedef struct dma data; 
+data x, y;  
 
 bool valida(struct dma data) { 
     if (data.mes < 1 || data.mes > 12) 
@@ -39,26 +43,41 @@ bool valida(struct dma data) {
         return true; 
     } 
 
-    int dias_decorridos(struct dma data_ini, struct dma data_fim) { 
-        float dias_no_mes[13]={0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}, tot_dias_ini, tot_dias_fim;
-        int i;
+int dias_decorridos(struct dma data_ini, struct dma data_fim) { 
+    float dias_no_mes[13]={0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}, tot_dias_ini, tot_dias_fim;
+    int i;
 
-        tot_dias_ini = data_ini.ano * 365.2425;
+    tot_dias_ini = data_ini.ano * 365.2425;
 
-        for (i=1; i<data_ini.mes; i++){
-            tot_dias_ini += dias_no_mes[i]; 
-            if ((((data_ini.ano % 4 == 0) && (data_ini.ano % 100 != 0)) || (data_ini.ano % 400 == 0)) && data_ini.mes > 2)
-                tot_dias_ini++; 
-            tot_dias_ini += data_ini.dia; 
-        }
+    for (i=1; i<data_ini.mes; i++){
+        tot_dias_ini += dias_no_mes[i]; 
+        if ((((data_ini.ano % 4 == 0) && (data_ini.ano % 100 != 0)) || (data_ini.ano % 400 == 0)) && data_ini.mes > 2)
+            tot_dias_ini++; 
+        tot_dias_ini += data_ini.dia; 
+    }
 
-        tot_dias_fim = data_fim.ano * 365.2425; 
+    tot_dias_fim = data_fim.ano * 365.2425; 
 
-        for (i=1; i<data_fim.mes; i++) 
-            tot_dias_fim += dias_no_mes[i]; 
-            if (((data_fim.ano % 4 == 0) && (data_fim.ano % 100 != 0) || (data_fim.ano % 400 == 0)) && data_fim.mes > 2) 
-                tot_dias_fim++; 
-            tot_dias_fim += data_fim.dia; 
-
+    for (i=1; i<data_fim.mes; i++){
+        tot_dias_fim += dias_no_mes[i]; 
+        if ((((data_fim.ano % 4 == 0) && (data_fim.ano % 100 != 0)) || (data_fim.ano % 400 == 0)) && data_fim.mes > 2) 
+            tot_dias_fim++; 
+        tot_dias_fim += data_fim.dia; 
+        
+    }
     return (tot_dias_fim - tot_dias_ini); 
-} 
+}
+
+int main(){
+    int a;
+    printf("Digite uma data inicial:");
+    scanf("%d %d %d", &x.dia, &x.mes,&x.ano);
+    valida(x);
+    printf("Digite uma data final: ");
+    scanf("%d %d %d", &y.dia, &y.mes,&y.ano);
+    valida(y);
+    if ((valida(x) && valida(y)) == true ){
+        a = dias_decorridos(x, y);
+        printf("Decorreram %d dias.", a);
+    }
+}
