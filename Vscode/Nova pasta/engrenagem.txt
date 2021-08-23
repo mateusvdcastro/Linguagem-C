@@ -1,0 +1,26 @@
+  ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+  ||||||||||||||||||||||||||                ||||||||||||||||||||||||||||||
+  ||||||||||||||||||||||||||    Dimensões   ||||||||||||||||||||||||||||||
+  ||||||||||||||||||||||||||                ||||||||||||||||||||||||||||||
+  ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+---> Número de dentres da engrenagem: 50
+
+---> Módulo: 2
+
+---> Ângulo de pressão: 0,0
+
+---> Altura do dente corrigida(a'): 2,025
+
+---> Espessura cordal(X): 3,141
+
+---> Número mínimo de dentes(K): 5
+
+---> Distância entre os dentes(Wk): 27,928
+
+---> Diâmetro teórico do cilindro calibrado(DMR): 3,456
+
+---> Diâmetro da engrenagem com os cilindros(Y): 50,435
+
+---> Diâmetro primitivo efetivo(MDR): 104,325
+
