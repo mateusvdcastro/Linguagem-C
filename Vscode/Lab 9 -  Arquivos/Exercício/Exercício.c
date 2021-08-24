@@ -1,58 +1,39 @@
 /*
 Mateus Vespasiano de Castro RA: 159505
 */
-#include <string.h>
 #include <stdio.h>
+#include <string.h>
+
 
 int main(int argc, char *argv[]){
-    char string[100], ler;
-    int i;
+    FILE *arq, *arq2;
+    char *arq1, espaço[2] = " ";
+    long tamarq, posini;
+    arq = fopen(argv[1], "r");
+    arq2 = fopen(argv[4], "w");
 
-    FILE *fr, *fw;
-    char c;
-    fr = fopen(argv[1], "r");
-    fw = fopen(argv[4], "w");
-
-    if(argc != 5){
-      printf("Quantidade de parametros errados!");
-      return 0;
-    }
-    if(fr == NULL){ 
-        printf("Erro! O arquivo de entrada nao existe.");
-        return 0;
-    }
-    if(fw == NULL){ 
-        printf("Erro! Nao foi possivel criar o arquivo de saida.");
-        return 0;
-    }
-
-    ler = getc(fr); 
-    while(ler != EOF){ 
-
-      string[i] = ler; 
-
-      i++;
-      ler = getc(fr);
-    }
-    printf("%s", &ler);
-
-    if(strcmp(string, argv[2])==0){ 
-      argv[3] = string; 
-    }
-
-    while (fscanf(fr, "%c", &c) != EOF)
-        fprintf(fw, "%c", c);
-
+    posini = ftell(arq);
+    fseek(arq, 0, SEEK_END);
+    tamarq = ftell(arq);
+    fseek(arq, posini, SEEK_SET);
+    char strori[tamarq], novastr[tamarq];
+    fread(&strori, sizeof(char), 100, arq);
+    arq1 = strtok(strori, espaço);
     
-    fclose(fr);
-    fclose(fw);
-    return 0;
+    while (arq1 != NULL){
+      if(strcmp(arq1, argv[2]) == 0){
+        fprintf(arq2,"%s", argv[3]);
+        fprintf(arq2, "%s", espaço);
+      
+      }
+      else{
+        fprintf(arq2,"%s", arq1);
+        fprintf(arq2, "%s", espaço);
+      }
+      arq1 = strtok(NULL, espaço);
+    }
+    
+    
+    fclose(arq);
+    fclose(arq2);
 }
-
-/*
-./main arquivo_ex.txt arquivo_ex2.txt
-*/
-
-/*
-./main arquivo_ex.txt arquivo_ex2.txt
-*/
