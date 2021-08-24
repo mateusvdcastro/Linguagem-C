@@ -15,7 +15,7 @@ int main(int arg, char *argv[]){
         return 2;
     while (fscanf(fr, "%c", &c) != EOF)
         fprintf(fw, "%c", c);
-    printf("Insira o nome: ");
     fclose(fr);
     fclose(fw);
     return 0;
+}
