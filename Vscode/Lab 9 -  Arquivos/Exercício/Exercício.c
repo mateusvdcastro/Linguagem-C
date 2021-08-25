@@ -1,24 +1,24 @@
 /*
 Mateus Vespasiano de Castro RA: 159505
+
+Escreva um programa que leia um arquivo texto e duas strings e um nome para um arquivo a ser criado
+Todos os parâmetros devem ser passados como argumentos da função main(int argc, char *argv[])
+O programa deve retornar uma mensagem ao usuário quando o número de parâmetros for incompatível com o problema (arquivoIn, string1, string2 e arquivoOut)
+Uma função deve buscar por ocorrências da string1 no arquivoIn, substituí-la pela string2 durante a geração do arquivoOut
 */
 #include <stdio.h>
 #include <string.h>
 
 
 int main(int argc, char *argv[]){
+
     FILE *arquivoln, *arquivoOut;
+
     char *arq1, quebra_str[2] = " ";
-    long tamarq, ini_arq;
+    long taman_arq, ini_arq;
+
     arquivoln = fopen(argv[1], "r");
     arquivoOut = fopen(argv[4], "w");
-
-    ini_arq = ftell(arquivoln);
-    fseek(arquivoln, 0, SEEK_END);
-    tamarq = ftell(arquivoln);
-    fseek(arquivoln, ini_arq, SEEK_SET);
-    char strori[tamarq], novastr[tamarq];
-    fread(&strori, sizeof(char), 100, arquivoln);
-    arq1 = strtok(strori, quebra_str);
 
     if(argc != 5){ 
       printf("Quantidade de parametros diferente de 4!");
@@ -32,7 +32,17 @@ int main(int argc, char *argv[]){
         printf("Nao foi possivel criar o arquivo de saida.");
         return 0;
     }
-    
+
+    ini_arq = ftell(arquivoln);
+    fseek(arquivoln, 0, SEEK_END);
+    taman_arq = ftell(arquivoln);
+    fseek(arquivoln, ini_arq, SEEK_SET);
+
+    char str_ini[taman_arq];
+
+    fread(&str_ini, sizeof(char), 100, arquivoln);
+
+    arq1 = strtok(str_ini, quebra_str);
     while (arq1 != NULL){
       if(strcmp(arq1, argv[2]) == 0){
         fprintf(arquivoOut,"%s", argv[3]);
