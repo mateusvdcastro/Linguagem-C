@@ -15,19 +15,19 @@ int main(void){
     imprime_nomes();
     printf("\n");
     salarios_func();
-    printf("\n");
+    printf("\n\n");
     capitalize();
     printf("\n");
     intercala();
     
 
     /* Lab 6 */
-    printf("\n");
+    printf("\n\n");
     torre_de_hanoi();
     
 
     /* Lab 7 */
-    printf("\n");
+    printf("\n\n");
     ponteiros1();
     printf("\n");
     ponteiros2();

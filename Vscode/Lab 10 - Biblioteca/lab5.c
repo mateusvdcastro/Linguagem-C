@@ -42,7 +42,7 @@ char salarios_func(){
   float sal=0, sal_novo=0;                                            
 
   printf("Informe o cargo: ");
-  scanf("%s", &cargo);      
+  scanf("%s", cargo);      
   printf("Informe o salario: ");
   scanf("%f", &sal);               
   printf("%s\n", cargo);
@@ -66,6 +66,7 @@ char capitalize(){
   char str[100];
   int i;
   printf("Digite uma frase ou palavra: ");
+  getchar();
   fgets(str, 100, stdin);
   str[0] = str[0] - 32;
   for (i = 0; i < strlen(str); i++){
