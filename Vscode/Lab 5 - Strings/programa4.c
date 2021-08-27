@@ -15,16 +15,16 @@ Mateus Vespasiano de Castro RA: 159505
 #include <string.h>
 
 int main() {
-    char string[100];
+    char str[100];
     int i;
     printf("Digite uma frase ou palavra: ");
-    fgets(string, 100, stdin);
-    string[0] = string[0] - 32;
-    for (i = 0; i < strlen(string); i++){
-        if (string[i] == ' '){
-            string[i+1] = string[i+1] - 32;
+    fgets(str, 100, stdin);
+    str[0] = str[0] - 32;
+    for (i = 0; i < strlen(str); i++){
+        if (str[i] == ' '){
+            str[i+1] = str[i+1] - 32;
         }
     }
     
-    printf("A palavra/frase digita com a primeira letra maiuscula: %s", string);
+    printf("A palavra/frase digita com a primeira letra maiuscula: %s", str);
 }
