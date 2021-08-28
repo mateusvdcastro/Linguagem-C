@@ -1,4 +1,5 @@
 /*
+Fazer uma biblioteca com as funções pedidas nos Labs 5, 6 e 7.
 Mateus Vespasiano de Castro RA:159505
 */
 
