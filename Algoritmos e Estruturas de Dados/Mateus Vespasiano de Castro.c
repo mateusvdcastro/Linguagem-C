@@ -1,237 +1,283 @@
 /*
-Nome: Mateus Vespasiano de Castro
+NOME: Mateus Vespasiano de Castro
 RA: 159505
-Turma: IB
+TURMA: IB
 */
 
-#include <stdio.h>
 #include <stdlib.h>
-#include <locale.h>
+#include <stdio.h>
 #include <string.h>
-#include <ctype.h>
-#include <math.h> // pow
+#include <locale.h>
+#include <ctype.h> 
 
-typedef struct {  // Esta pilha será utilizada para converter de infixo para
-  char vet[30];   // posfixo
-  int topo;
-}TPilha;
+typedef struct {
+  char nome_do_produto[26];
+  int quantidade_vendida;
+  int mes_de_venda;
+  char quem_comprou[35];
+}Produto;
 
-typedef struct calcula {  // Esta pilha será utilizada para calcular a 
-  float valor;  // expressão posfixa
-  struct calcula *proximo;
-} Calcula;
+// Função que exibe o total de vendas de um determinado mês
+void tot_vendas_m(Produto *produtos, Produto *ponteiro, int n){
+  int mes=0, i, tot, val=0;
+  printf("\n\n--------------Total de Vendas------------------");
+  printf("\nDigite o mês que quer exibir o total de vendas : ");
+  scanf("%d", &mes);
+  while (val != 1){
+    /*isalpha(mes) != 0 || */
+    if (mes < 0 || mes > 12) {
+      printf("Mês inválido, digite um mês válido [1 a 12]: ");
+      scanf("%d", &mes);
+    } else val = 1;
+  }
+  val = 0;
 
-// criando pilha
-TPilha* nova(){
-  TPilha* np = (TPilha *)  malloc (sizeof(TPilha));
-  np->topo=-1;
-  return np;
+  tot =0 ;
+  for (ponteiro = &produtos[0]; ponteiro<&produtos[n]; ponteiro++) {
+    if (ponteiro->mes_de_venda == mes){
+        tot = tot + ponteiro->quantidade_vendida;
+    }
+  }
+  printf("Total vendido no mes %d: %d unidade(s)", mes, tot);
 }
 
-// empilhando dados
-char push(TPilha* p, char val){
-  if (p->topo>= 29) // pilha cheia
-    return -1;  // erro no empilhamento
+//Função que exibe o total de vendas de um determinado mês, produto e comprador
+void tot_pvm(Produto *produtos, Produto *ponteiro, int n) {
+  char produto[30], nome[50];
+  int mes=0, tot=0, val=0, i;
 
-  (p->topo)++;  // acresce o índice
-  p->vet[p->topo] = val;
-  return val;
-}
+  printf("\n--------- BUSCA POR PRODUTO, MÊS E COMPRADOR ---------\n");
+  printf("\nNome do produto: ");
+  scanf("%s", produto);
+  fflush(stdin);
 
-Calcula *empilhar(Calcula *pilha, float num){
-  Calcula *novo = malloc(sizeof(Calcula));
+  while(val!=1){
+    val = 0;
+    for (ponteiro = &produtos[0]; ponteiro<&produtos[n]; ponteiro++){
+      if(strcmp(ponteiro->nome_do_produto, produto)==0)
+        val = 1;
+    }
+    if (val != 1){
+      printf("\n!!!Este produto não está presente na base de dados.");
+      printf("\nDigite novamente: ");
+      scanf("%s", produto);
+    }
+  }
 
-  if (novo){
-    novo->valor = num;
-    novo->proximo = pilha;
-    return novo;
-  } else
-    printf("\nErro");
-  return NULL;
-}
+  val = 0;
+  printf("\nDigite o mês: ");
+  scanf("%d", &mes);
 
-// desempilhando dados
-char pop (TPilha* p, char* val, int i){
-  if (p->topo < 0)  // pilha vazia
-    return -1;
-  val[i] = p->vet[p->topo];
-  // note que a variável "topo" não foi apagada de fato, nós decrescemos o índice do topo, e quando tivermos que acrescentar de novo a variável será sobrescrita
-  p->topo--; // decresce o índice
-  return *val;
-}
+  while (val != 1){
+    if (mes < 0 || mes > 12) {
+      printf("Mês inválido, digite um mês válido [1 a 12]: ");
+      scanf("%d", &mes);
+    } else val = 1;
+  }
 
-Calcula* desempilhar(Calcula **pilha){
-  Calcula *remover = NULL;
-
-  if(*pilha){
-    remover = *pilha;
-    *pilha = remover->proximo;
-  } else
-    printf("\nPilha vazia.");
-  return remover;
-}
-
-TPilha *libera (TPilha* p){
-  free(p);
-  return (NULL);
-}
-
-void ConsultaPilha (TPilha *p){  // não será usado
-  int i;
-  for (i=0;i<=p->topo;i++)
-    printf ("\n Elemento %d: %c", p->topo-i+1, p->vet[p->topo-i]); // printando do topo até a base
-}
-
-int Prioridade(TPilha* pilha, char c){
-
-  int pe, pt;
-
-  if(c == '^')
-    pe = 4;
-  else if(c == '*' || c == '/')
-    pe = 2;
-  else if(c == '+' || c == '-')
-    pe = 1;
-  else if(c == '(')  // não será usado 
-    pe = 4;
-
-  if(pilha->vet[pilha->topo] == '^')
-    pt = 3;
-  else if(pilha->vet[pilha->topo] == '*' || pilha->vet[pilha->topo] == '/')
-    pt = 2;
-  else if(pilha->vet[pilha->topo] == '+' || pilha->vet[pilha->topo] == '-')
-    pt = 1;
-  else if(pilha->vet[pilha->topo] == '(')  // não será usado 
-    pt = 0;
-
-  return (pe > pt);  // retorna 1 se a prioridade da entrada "pe" for maior 
-  // que a prioridade do operador do topo da pilha "pt", e 0 caso contrário
-}
-
-void converter(TPilha* pilha, char string[1000]){
-  int i=0, j=0;
-  char c, v, PosFix[1000];
-
-  do {
-    c = string[i];
-    i++; 
-    if(c == '+' || c == '-' ||
-      c == '*' || c == '/' ||
-      c == '^'){
-        PosFix[j] = ' ';
-        j++;
-
-        if ((pilha->topo == -1) || Prioridade(pilha, c) == 1) {
-          push(pilha, c);
-        } else {
-            while(1){
-            pop(pilha, PosFix, j);
-            j++;
-            PosFix[j] = ' ';
-            j++;
-            if((pilha->topo == -1) || Prioridade(pilha, c) == 1){
-              push(pilha, c);
-              break;
-          }
-        }
+  printf("\nNome do cliente comprador: ");
+  scanf("%s", nome);
+  fflush(stdin);  // limpar o buffer
+  
+  val = 0;
+  while (val != 1){
+    for (ponteiro = &produtos[0]; ponteiro<&produtos[n]; ponteiro++){
+      if (strcmp(ponteiro->quem_comprou, nome) == 0){
+        val = 1;
       }
-    } else{
-      PosFix[j] = c;
-      j++;
     }
-
-  } while(c != '\0');
-    j = j-1;
-    while(pilha->topo != -1){  // desempilhar tudo oq estiver na pilha
-         PosFix[j] = ' ';
-         j++;
-         pop(pilha, PosFix, j);
-         j++;
-
+    if (val != 1) {
+      printf("\n!!!Este nome não está presente na base de dados.");
+      printf("\nDigite novamente: ");
+      scanf("%s", nome);
+      fflush(stdin);
     }
-    PosFix[j] = '\0';  // para finalizar a string e o programa não superar ela
-    strcpy(string, PosFix);
+  }
+  
+
+  for (ponteiro=&produtos[0];ponteiro<&produtos[n];ponteiro++){
+    if (ponteiro->mes_de_venda == mes && strcmp(ponteiro->nome_do_produto, produto) == 0 && strcmp(ponteiro->quem_comprou, nome) == 0){
+      printf("\nMês: %d \nProduto:%s \nComprador: %s \nQuantidade Vendida: %d", ponteiro->mes_de_venda, ponteiro->nome_do_produto, ponteiro->quem_comprou, ponteiro->quantidade_vendida);
+      tot = tot + ponteiro->quantidade_vendida;
+    }
+  }
+
+  printf("\n\n--------------Resultados-----------------\n");
+  printf("\nTotal de vendas do produto %s no mês %d\npara o(a) cliente %s: %d\n", produto, mes, nome, tot);
+
 }
 
-float operacao(float n1, float n2, char token){
-  switch(token){
-    case '+':
-      return n1 + n2;
-      break;
-    case '-':
-      return n1 - n2;
-      break;
-    case '/':
-      return n1 / n2;
-      break;
-    case '*':
-      return n1 * n2;
-      break;
-    case '^':
-      return pow(n1, n2);
-      break;
-    default:
-      return 0.0;
+// Função que exibe o total de vendas ao longo do ano
+void tot_vendas(Produto *produtos, Produto *ponteiro, int n){
+  int i=0, j=0, z=0, tot=0, val=0;
+  char produto[30];
+
+  printf("\n\n----------Quantidade Vendida---------------\n");
+
+  for (ponteiro=&produtos[0], i=0; ponteiro<&produtos[n]; ponteiro++, i++){
+    val = 0;
+    for (z=0; z<i; z++){
+      if(strcmp(produtos[i].nome_do_produto, produtos[z].nome_do_produto)==0){
+        val=1;
+        break;
+      }
+    }
+    if (val == 1){
+      continue;
+    }
+
+    tot = 0;
+    printf("\n-> Quantidade vendida de '%s':", ponteiro->nome_do_produto);
+    for(j=0; j<n; j++){
+        if(strcmp(produtos[j].nome_do_produto, ponteiro->nome_do_produto)==0){
+            printf("\n+ No mês %d, a quantidade vendida foi: %d.", produtos[j].mes_de_venda, produtos[j].quantidade_vendida);
+            tot += produtos[j].quantidade_vendida;
+        }
+    }
+    printf("\n= O total de vendas de %s foi: %d unidade(s).\n", ponteiro->nome_do_produto, tot);
   }
 }
 
+// Função que exibe o total de vendas por cliente
+void tot_cliente(Produto *produtos, Produto *ponteiro, int n){
+  int i=0, j=0, z=0, tot=0, val=0;
+  char cliente[50];
 
-float resolver(char string[40]){
-  char *token;
-  float num;
-  Calcula *n1, *n2, *pilha = NULL;
+  printf("\n-----------------Total vendido por cliente--------------");
+  for (ponteiro=&produtos[0], i=0; ponteiro<&produtos[n]; ponteiro++, i++){
 
-  token = strtok(string, " ");
-  while(token){
-    if(token[0] == '+' || token[0] == '-' || token[0] == '*' || token[0] == '/' || token[0] == '^'){
-      n1 = desempilhar(&pilha);
-      n2 = desempilhar(&pilha);
-      num = operacao(n2->valor, n1->valor, token[0]);
-      pilha = empilhar(pilha, num);
-      free(n1);
-      free(n2);
-    }else{
-      num = strtol(token, NULL, 10); // converter str em hexadecimal 
-      pilha = empilhar(pilha, num);
-    }
-    token = strtok(NULL, " ");
+  val = 0;
+  for(z=0; z<i; z++){
+      if(strcmp(produtos[i].quem_comprou, produtos[z].quem_comprou)==0){
+          val=1;
+          break;
+      }
   }
-  n1 = desempilhar(&pilha);
-  num = n1->valor;
-  free(n1);
-  return num;
+  if (val == 1){
+    continue;
+  }
+  tot = 0;
+  for(j=0; j<n; j++){
+      if(strcmp(produtos[j].quem_comprou, ponteiro->quem_comprou)==0){
+
+          tot+= produtos[j].quantidade_vendida;
+      }
+  }
+  
+  printf("\nO cliente %s comprou, ao total: %d unidades de produtos.", ponteiro->quem_comprou, tot);
+  }
+  printf("\n--------------------------------------------------------\n");
 }
 
-
+// Função Menu
+void menu (){
+    printf("\n\n====================== Cadastro ======================");
+    printf("\n1) Total de vendas num dado mês (de todos os produtos): ");
+    printf("\n2) Total de vendas de um determinado produto num dado mês para um determinado cliente: ");
+    printf("\n3) Total de vendas de cada produto (em todos os meses): ");
+    printf("\n4) Total vendido para cada cliente: ");
+    printf("\n5) Fim");
+    printf("\n----------------------------------------------------\n");
+}
 
 int main(void) {
-  int idx=0, val;
-  char Infixa[1000], Posfixa[10000], c, aux[10000];
-  float res;
-  int erros=0;
+  setlocale(LC_ALL,"");
+  int n, op, tam, val = 0, i=0;
+  // A variável n indica o tamanho do vetor
+  printf("\n------------------- Cadastro -----------------------\n");
+  printf("Digite a quantidade de produtos a serem computados: ");
+  scanf("%d", &n);
+  
+  val = 0;
+  while (val!=1){
+    if (n == 0 || n < 0){
+      printf("\nNúmero inválido, digite novamente: ");
+      scanf("%d", &n);
+    } else val = 1;
+  }
 
-  TPilha *minhapilha;
+  val = 0;
 
-  minhapilha = nova();
-                    
-  printf ("\n Insira uma expressão artimetica: ");  // 5*8+4-9/5*3^4/5^2*4-6+7/8 = 15.47
-  scanf("%[^\n]s", Infixa);
+  Produto *produtos, *ponteiro;
+  // alocaçãp dinâmica da memória
+  produtos = (Produto*)malloc(n * sizeof(Produto));
 
-  converter(minhapilha, Infixa);
+  ponteiro = &produtos[0];
+  // primeiro uso de aritmética de ponteiros
+  for (ponteiro=&produtos[0];ponteiro<&produtos[n];ponteiro++){
+    printf("\nDigite o nome do produto: ");
+    scanf("%s", ponteiro->nome_do_produto);
+    printf("\nDigite a quantidade que deseja comprar:");
+    scanf("%d", &ponteiro->quantidade_vendida);
+    printf("\nDigite o mês em que está:");
+    scanf("%d", &ponteiro->mes_de_venda);
+    while (val != 1){
+    if (ponteiro->mes_de_venda < 0 || ponteiro->mes_de_venda > 12) {
+      printf("Mês inválido, digite um mês válido [1 a 12]: ");
+      scanf("%d", &ponteiro->mes_de_venda);
+    } else val = 1;
+    }
+    printf("\nDigite o seu nome:");
+    scanf("%s", ponteiro->quem_comprou);
+  }
 
-  strcpy(Posfixa, Infixa);
+  val = 0;
+  // Descomente essa seção e comente a de cima caso queira agilizar
+  /*
+  strcpy(produtos[0].nome_do_produto, "Caneca");
+  produtos[0].quantidade_vendida = 15;
+  produtos[0].mes_de_venda = 2;
+  strcpy(produtos[0].quem_comprou, "Joaquim");
+  strcpy(produtos[1].nome_do_produto, "Hotwheels");
+  produtos[1].quantidade_vendida = 14;
+  produtos[1].mes_de_venda = 1;
+  strcpy(produtos[1].quem_comprou, "AnaLuiza");
+  strcpy(produtos[2].nome_do_produto, "Caneca");
+  produtos[2].quantidade_vendida = 2;
+  produtos[2].mes_de_venda = 2;
+  strcpy(produtos[2].quem_comprou, "Carlos");
+  strcpy(produtos[3].nome_do_produto, "Mochila");
+  produtos[3].quantidade_vendida = 6;
+  produtos[3].mes_de_venda = 1;
+  strcpy(produtos[3].quem_comprou, "Carlos");
+  strcpy(produtos[4].nome_do_produto, "Garrafa");
+  produtos[4].quantidade_vendida = 4;
+  produtos[4].mes_de_venda = 12;
+  strcpy(produtos[4].quem_comprou, "Leandro");
+  strcpy(produtos[5].nome_do_produto, "Caneta");
+  produtos[5].quantidade_vendida = 24;
+  produtos[5].mes_de_venda = 9;
+  strcpy(produtos[5].quem_comprou, "Leandro");
+  */
+  while (op!=5){
+    menu();
 
-  res = resolver(Infixa);
+    printf("\nDigite qual sua opção?: ");
+    scanf("%d", &op);
 
-  printf("\n\n------------RESULTADO--------------");
-  printf("\n\nExpressao posfixa:");
-  printf("\n=> %s\n", Posfixa);
-  printf("\nResultado da expressao:");
-  printf("\n=> %.1f\n", res);
-  printf("\n-------------------------------------\n");
-
- 
-  libera(minhapilha);
-
+    while (val != 1){
+    if (op != 1 && op != 2 && op != 3 && op != 4 && op != 5){
+      printf("!!!Valor inválido\n\n");
+      menu();
+      printf("\nDigite um valor válido desta vez:");
+      scanf("%d", &op);
+    } else val = 1;
+    }
+    
+    if (op == 1) {
+      tot_vendas_m(produtos, ponteiro, n);
+    }
+    if (op == 2) {
+      tot_pvm(produtos, ponteiro, n);
+    }
+    if (op == 3){
+      tot_vendas(produtos, ponteiro, n);
+    }
+    if (op == 4){
+      tot_cliente(produtos, ponteiro, n);
+    }
+  }
+  // desalocando a memória
+  free(produtos);
   return 0;
 }
