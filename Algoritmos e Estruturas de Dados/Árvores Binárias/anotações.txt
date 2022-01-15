@@ -1,0 +1,3 @@
+prefix: acdebfg
+infix:  dceafbg
+posfix: decfgba
