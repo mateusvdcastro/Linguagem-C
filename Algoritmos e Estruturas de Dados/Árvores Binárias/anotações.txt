@@ -1,3 +1,7 @@
+
+verificar se a prefixa e a infixa são válidas
+verificar se todas as letras são iguais na infixa e prefixa
+
 prefix: acdebfg
 infix:  dceafbg
 posfix: decfgba
