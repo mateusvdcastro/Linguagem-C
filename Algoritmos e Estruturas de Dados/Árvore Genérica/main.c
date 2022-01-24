@@ -10,12 +10,22 @@
 
 // estrutura de um nó de uma árvore binária
 typedef struct arv {
-    char info;
+    int info;
     int verfica_var;
     struct arv* esq;
     struct arv* dir;
 } TArv;
 typedef TArv *PArv;
+
+// desaloca a árvore da memória
+PArv libera (PArv a){
+    if (a!=NULL) {
+        libera(a->esq); /* libera sae */
+        libera(a->dir); /* libera sad */
+        free(a); /* libera raiz */
+    }
+    return NULL;
+}
 
 // imprime a árvore formatada, de melhor visualização
 void imprimeT(PArv p, int nivel){
@@ -29,7 +39,11 @@ void imprimeT(PArv p, int nivel){
     for(i=0; i<nivel; i++)
         printf("\t");
 
-    printf("%3c\n",p->info);
+    if (p->verfica_var == 1) {
+        printf("%3c\n",p->info);
+    } else{
+        printf("%3d\n",p->info);
+    }
 
     imprimeT(p->esq, nivel+1); 
 }
@@ -78,11 +92,33 @@ void flush(){  // limpa o lixo de memória e o buffer do teclado do scanf
     while( (ch = fgetc(stdin)) != EOF && ch != '\n' ){} 
 }
 
+int verifica_letras_numeros (char exp[499]){
+    int i;
+    for (i = 0; i<strlen(exp); i++){
+      if ((exp[i] >= 48 && exp[i] <= 57) || exp[i] == '+' || exp[i] == '-' || exp[i] == ' '){
+          continue;
+      } else {
+          printf("\nHa caracteres invalidos na expressao, digite novamente.\n");
+          return -1;
+      }
+    }
+
+    for (i = 0; i<strlen(exp); i++){
+        if ((exp[i] >= 48 && exp[i] <= 57) && (exp[i+1] ==' ') && (exp[i+2] >= 48 && exp[i+2] <= 57)){
+        printf("\nNão digite espaços entre numeros.\n");
+        return -1;
+      }
+    }
+
+    return 0;
+}
+
+// esta função retira os espaços da expressao
 void arruma_exp(char exp[499]){
   char aux_exp[499];
   int i, j=0;
 
-  for (i=0; i < strlen(exp); i++){  // retira os espaços da expressao
+  for (i=0; i < strlen(exp); i++){  
     if (exp[0] == '+'){
         exp[0] = ' ';
     }
@@ -94,44 +130,61 @@ void arruma_exp(char exp[499]){
     }
   }
   aux_exp[j] = '\0';
-
-  /*
-  j=0;
-  for (i=0; i < strlen(aux_exp); i++){
-    if (aux_exp[0] == '-'){
-      exp[0] = exp[1];
-      j++;
-      j++;
-      exp[j] = exp[i];
-    } else {
-      exp[j] = exp[i];
-      j++;
-    } 
-  }
-  exp[j] = '\0';
-  */
-
   strcpy(exp, aux_exp);
+}
+
+int soma_folha(PArv raiz) {
+    int soma;
+
+    if(raiz != NULL){
+
+      if ((raiz->esq != NULL) && (raiz->dir != NULL)){
+        if (raiz->info == '+'){
+            soma = soma_folha(raiz->esq) + raiz->dir->info;
+        }else {
+            soma = soma_folha(raiz->esq) - raiz->dir->info;
+        }
+      } else {
+            soma= raiz->info;
+        }
+    }
+    return soma;
 }
 
 int main(){
   char expressao[500], expressao_valid[500];
+  int i, rec = 0, soma = 0;
 
   PArv arvore = NULL;
 
-  printf("\n\nDigite a expressao: ");
+  printf("\n\nDigite a expressao: \n");
   //fgets(expressao, 500, stdin);
   //expressao[strcspn(expressao, "\n")] = 0;
   scanf("%[^\n]", expressao);
   flush();
 
-  printf("\n==> %s", expressao);
+  printf("\n==> %s\n", expressao);
+
+  rec = verifica_letras_numeros(expressao);
+
+  if (rec == 0){
+      printf("");
+  } else {
+      return -1;    
+  }
 
   arruma_exp(expressao);
 
   if (expressao[0] == '-'){
-      printf("\n Tchau.");
+      printf("\n Erro, o primeiro numero não pode ser negativo, reinicie o programa por favor.\n");
       return -1;
+  } else {
+      for (i = 0; i<strlen(expressao); i++){
+          if ((expressao[i] == '+' && expressao[i+1] == '+') || (expressao[i] == '+' && expressao[i+1] == '-') || (expressao[i] == '-' && expressao[i+1] == '+') || (expressao[i] == '-' && expressao[i+1] == '-')){
+              printf("\nNão digite dois operadores seguidos, digite a expressao novamente.\n");
+              return -1;
+          }
+      }
   }
 
   printf("\n==> %s\n\n", expressao);
@@ -140,5 +193,12 @@ int main(){
 
   imprimeT(arvore, 0);
 
+  soma = soma_folha(arvore);
+
+  printf("\nA soma da arvore eh: %d\n", soma);
+
+  libera(arvore);
+  
   return 0;
 }
+
