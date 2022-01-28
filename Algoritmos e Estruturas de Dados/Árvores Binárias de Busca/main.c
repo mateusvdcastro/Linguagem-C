@@ -18,12 +18,66 @@ typedef struct arv {
 typedef TArv *PArv;
 
 typedef struct arvA {
-  char RA[7];
+  int RA;
   char nome[40];
   float N1, N2, N3;
 }TArvA;
 typedef TArvA *PArvA;
 
+// imprime a árvore formatada, de melhor visualização
+void imprimeT(PArv p, int nivel){
+  int i;
+
+  if(p == NULL)
+      return;
+
+  imprimeT(p->esq, nivel+1);
+
+  for(i=0; i<nivel; i++)
+      printf("\t");
+
+  printf("%3c\n",p->info);
+
+  imprimeT(p->dir, nivel+1); 
+}
+
+PArv insereABB (PArv arv, int c) {
+  PArv novo;
+  if (arv == NULL) { // arvore vazia
+  novo=(PArv)malloc(sizeof(TArv));
+  novo->esq = NULL;
+  novo->dir = NULL;
+  return(novo);
+  }
+  else if (c < arv->info)
+  arv->esq = insereABB(arv->esq,c);
+  else
+  arv->dir = insereABB(arv->dir,c);
+  return(arv);
+}
+
+PArv buscaABB (PArv arv, char c) {
+  if (arv==NULL)
+  return NULL; /*árvore vazia*/
+  else if(c < arv->info)
+
+  return(buscaABB(arv->esq,c));
+
+  else if (c > arv->info)
+  return(buscaABB(arv->dir,c));
+  else
+  return(arv); // encontrou a informação
+}
+
+int iguais(PArv a, PArv b){
+  if (a==NULL && b==NULL) //as duas árvores são NULL
+
+  return 1;
+  if (a==NULL || b==NULL) //somente uma das árvores é NULL
+  return 0;
+  return((a->info==b->info) && iguais(a->esq,b->esq) &&
+  iguais(a->dir,b->dir));
+}
 
 void menu (){
     printf("\n\n====================== Cadastro ======================");
@@ -33,7 +87,7 @@ void menu (){
     printf("4) Excluir da árvore todos os alunos que foram reprovados.\n");
     printf("5) Mostrar todos os alunos com chave menor ou igual a um dado RA.\n");
     printf("6) Iniciar uma nova árvore.\n");
-    printf("7) Sair.\n");
+    printf("7) Sair.");
     printf("\n----------------------------------------------------\n");
 }
 
@@ -42,9 +96,28 @@ void flush(){
     while( (ch = fgetc(stdin)) != EOF && ch != '\n' ){} 
 }
 
+void dados_aluno(char nome[], float *N1, float *N2, float *N3){
+
+    printf("\nDigite o seu nome: ");
+    scanf("%[^\n]", nome);
+    flush();
+
+    printf("\nDigite a primeira nota: ");
+    scanf("%f", &*N1);
+    flush();
+
+    printf("\nDigite a segunda nota: ");
+    scanf("%f", &*N2);
+    flush();
+
+    printf("\nDigite a terceira nota: ");
+    scanf("%f", &*N3);
+    flush();
+}
+
 int main(void) {
   setlocale(LC_ALL,"");
-  char RA[7];
+  int RA;
   char nome[40];
   float N1, N2, N3;
   int op = 0, val = 0;
@@ -67,13 +140,21 @@ int main(void) {
     }
     
     if (op == 1) {
-      memset(RA, 0, sizeof(RA));
+      RA = 0;
+      memset(nome, 0, sizeof(nome));
+
       printf("\nDigite o seu RA: ");
-      scanf("%[^\n]", RA);
+      scanf("%d", &RA);
       flush();
 
-      memset(nome, 0, sizeof(nome));
-      //recebe_dados(nome, &n1, &n2, &n3);
+      dados_aluno(nome, &N1, &N2, &N3);
+      /*
+      printf("\n%d\n", RA);
+      printf("%s\n", nome);
+      printf("%f\n", N1);
+      printf("%f\n", N2);
+      printf("%f\n", N3);
+      */
     }
     if (op == 2) {
     }
