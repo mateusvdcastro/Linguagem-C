@@ -339,7 +339,7 @@ int main(void) {
       if(arv_aluno == NULL){
         printf("\nArvore vazia! Digite a opção 6 para recomeçar.\n");
       } else {
-          printf("\n=>Os alunos reprovados sao: \n");
+          printf("\n=> Os alunos reprovados sao: \n");
           printf("\n===============================\n");
           opcao_3_reprovados(arv_aluno);
           printf("\n===============================\n");
