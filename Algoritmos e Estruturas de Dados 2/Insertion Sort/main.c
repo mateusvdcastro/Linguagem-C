@@ -5,6 +5,8 @@
 
 // Mateus Vespasiano de Castro RA 159505
 
+// https://pt.khanacademy.org/computing/computer-science/algorithms/insertion-sort/a/insertion-sort
+
 // A complexidade do Insertion Sort é no melhor caso O(n) e no pior O(n^2)
 
 

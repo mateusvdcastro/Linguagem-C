@@ -5,6 +5,8 @@
 #include <ctype.h>
 // Mateus Vespasiano de Castro RA 159505
 
+// https://pt.khanacademy.org/computing/computer-science/algorithms/binary-search/a/implementing-binary-search-of-an-array
+
 // A complexidade de uma busca binária é de OlogN
 
 // deve ser usada abaixo de cada scanf para limpar o buffer
