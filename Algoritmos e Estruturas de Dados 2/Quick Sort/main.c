@@ -27,13 +27,13 @@ int partition(int vet[], int ini, int fim)
   int pivo, q;
   // pivô = último elemento
   pivo = vet[fim];
-  q = ini;
+  q = ini;  // q irá apontar para o nosso pivô
 
-  for (int j = ini; j < fim; j++)
-  {
-    if (vet[j] <= pivo)
-    {
-      swap(vet, q, j);
+  for (int j = ini; j < fim; j++)  // j representa o índice de elementos que 
+  {                            // ainda não foram comparados
+    if (vet[j] <= pivo)  // Se vet[j] for menor igual ao pivô trocamos ele 
+    {  // pela posição de q (parte dos números a esquerda e portanto menor que 
+      swap(vet, q, j); // o pivô) e acrescemos q 
       q = q + 1;
     }
   }

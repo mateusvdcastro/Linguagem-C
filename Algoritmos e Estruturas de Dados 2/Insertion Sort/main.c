@@ -19,7 +19,7 @@
 //     for (i = 1; i < N; i++){
 //         chave = V[i];
 //         for (j = i; (j > 0) && (V[j - 1] > chave); j--)
-//             V[j] = V[j - 1 ];
+//             V[j] = V[j - 1];
 //         V[j] = chave;
 //     }
 // }
