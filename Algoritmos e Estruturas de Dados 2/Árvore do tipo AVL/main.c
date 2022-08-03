@@ -2,6 +2,8 @@
 // RA: 159505
 // Turma: IB
 
+// https://www.cs.usfca.edu/~galles/visualization/AVLtree.html
+
 #include <stdio.h>
 #include <stdlib.h>
 
