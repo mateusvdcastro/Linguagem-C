@@ -42,6 +42,11 @@ int main(int argc, char *argv[]) {
 
   replace_print(buf);
 
+  deallocate_buffer(buf);
+
+  // fechar o arquivo
+  fclose(arquivo);
+
   // printf("número de entradas=%d\n", argc);
   // printf("executável=%s\n", argv[0]);
   // printf("nome=%s\n", argv[1]);

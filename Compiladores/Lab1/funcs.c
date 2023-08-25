@@ -9,6 +9,12 @@ pBuffer allocate_buffer(pBuffer buf, int size) {
   return buf;
 }
 
+void deallocate_buffer (pBuffer buf) {
+
+  free(buf->buffer);
+  free(buf);
+}
+
 void replace_print(pBuffer buf) {
 
     for (int i=0; i<buf->bufferLen; i++) {
