@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-pBuffer allocate_buffer(pBuffer buffer, int size) {
+pBuffer allocate_buffer(pBuffer buf, int size) {
 
-  buffer->buffer = (char *)malloc(sizeof(char) * (size + 1));
+  buf->buffer = (char *)malloc(sizeof(char) * (size + 1));
 
-  return buffer;
+  return buf;
 }
 
 void replace_print(pBuffer buf) {
