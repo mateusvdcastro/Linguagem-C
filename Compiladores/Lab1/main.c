@@ -45,6 +45,7 @@ int main(int argc, char *argv[]) {
   deallocate_buffer(buf);
 
   // fechar o arquivo
+  //Teste git
   fclose(arquivo);
 
   // printf("número de entradas=%d\n", argc);
