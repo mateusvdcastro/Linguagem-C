@@ -4,6 +4,7 @@
 
 typedef struct 
 {
+    int tamLinha;
     int pos;
     int numLinha;
     char buffer[256];
@@ -11,10 +12,9 @@ typedef struct
 
 typedef Buffer *pBuffer;
 
+char get_next_char(pBuffer buf);
 
-char get_next_char(pBuffer buf, FILE *arquivo);
-
-pBuffer allocate_buffer (pBuffer buf);
+pBuffer allocate_buffer ();
 
 void replace_print(pBuffer buf);
 

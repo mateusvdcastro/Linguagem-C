@@ -3,11 +3,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define BUFFER_SIZE 256
+
 int main(int argc, char *argv[]) {
 
-  char *tam;
-  char c;
-  
+  char *tam; // Tamanho da string da linha
+  char c; // Caractere retornado pela get_next_char
+  int cont = 0;
   
   if (argc != 2) {
     printf("%s <nome> <qnt>\n", argv[0]);
@@ -22,7 +24,7 @@ int main(int argc, char *argv[]) {
   
   FILE *arquivo;
   
-  buf = allocate_buffer(buf);
+  buf = allocate_buffer();
 
   arquivo = fopen(argv[1], "r");
 
@@ -31,42 +33,26 @@ int main(int argc, char *argv[]) {
     exit(1);
   }
 
-  buf->pos = 0;
   buf->numLinha = 0;
 
-  tam = fgets(buf->buffer, 256, arquivo);
+  do {
+    tam = fgets(buf->buffer, BUFFER_SIZE, arquivo);
+    buf->tamLinha = strlen(tam);
 
-  //printf("%d", strlen(tam));
+    printf("\nNumero da linha: %d\n", buf->numLinha);
+    printf("\nTamanho da linha: %d\n", buf->tamLinha);
 
-  while (c = get_next_char(buf, arquivo) != EOF) {
-    c = get_next_char(buf, arquivo);
-    printf("%c", c);
-
-    if (buf->pos == 112){
-      break;
+    buf->pos = 0;
+   
+    for (int i = 0; i < buf->tamLinha; i++){
+      c = get_next_char(buf);
+      printf("%c", c);
     }
-/*
-    if (c == '\n') {
-      tam = fgets(buf->buffer, 256, arquivo);
-      if (strlen(tam) == 0) {
-        break;
-      }
-      break;
-    }
-*/
-  }
 
-  printf("\n Buf->pos %d \n", buf->pos);
-  printf("\n Buf->numLinha %d \n", buf->numLinha);
+  } while (tam != NULL);
   
-  buf->buffer[256] = '\0';
-  
-
-
+  deallocate_buffer(buf);
+  printf("\nOIOIOIOIO");
   fclose(arquivo);
 
-  printf("número de entradas=%d\n", argc);
-  // printf("executável=%s\n", argv[0]);
-  // printf("nome=%s\n", argv[1]);
-  // printf("sobrenome=%s\n", argv[2]);
 }

@@ -1,2 +1,5 @@
-The CompTIA Security+ Certification Kit includes CompTIA Security+ Study Guide: Exam SY0-601, 8th Edition, and 
-the CompTIA Security+ 
+The CompTIA Security+ Certification Kit includes CompTIA Security+ Study Guide: Exam SY0-601, 8th Edition, and the CompTIA Security+ Review Guide: Exam SY0-601, 5th Edition. The Study Guide The CompTIA Security+ Certification Kit includes CompTIA Security+ Study Guide: Exam SY0-601, 8th Edition, and the CompTIA Security+ Review Guide: Exam SY0-601, 5th Edition. The end
+the CompTIA Security+ Review Guide: Exam SY0-601, 5th Edition. The Study Guide 
+provides 100% coverage of all exam objectives for the new Security+ exam (SY0-601). The Review Guide provides condensed,
+focused coverage of every objective on the Security+ exam (SY0-601). Both books arewritten by leading experts in the field and feature real-world examples and hands-on exercises. This
+kit is your one-stop resource for complete coverage of Exam SY0-601.

@@ -1,32 +1,42 @@
 #include "funcs.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 
-pBuffer allocate_buffer (pBuffer buf) {
+#define BUFFER_SIZE 256
 
-  buf = (pBuffer)malloc(sizeof(pBuffer));
 
-  return buf;
+pBuffer allocate_buffer () {
+
+    pBuffer buf = NULL;
+
+    buf = (pBuffer)malloc(sizeof(Buffer));
+
+    return buf;
 }
 
-char get_next_char(pBuffer buf, FILE *arquivo){
+
+
+char get_next_char(pBuffer buf){
     //printf("%d", buf->pos);
+
+    char *tam;
+    int cont = 0;
+
+
+    if (buf->pos >= BUFFER_SIZE) {
+        return '\0';  // Retorne algum valor para indicar que não há mais caracteres para ler
+    }
 
     if (buf->buffer[buf->pos] == '\n') {
         buf->numLinha++;
-    } 
-    buf->pos++;
-
-    return buf->buffer[buf->pos];
-    
-    /*
-    
-    printf("%s", buf->buffer);
-    printf("\n Buf->pos %d \n", buf->pos);
-    printf("\n Buf->numLinha %d \n", buf->numLinha);
-    */
+        return '\n';
+    } else {
+        return buf->buffer[buf->pos++];
+    }
 }
+
 
 void deallocate_buffer (pBuffer buf) {
 
