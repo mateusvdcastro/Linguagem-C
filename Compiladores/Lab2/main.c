@@ -34,22 +34,15 @@ int main(int argc, char *argv[]) {
   }
 
   buf->numLinha = 0;
+  buf->pos = 0;
 
   do {
-    tam = fgets(buf->buffer, BUFFER_SIZE, arquivo);
-    buf->tamLinha = strlen(tam);
+  
+    c = get_next_char(buf);
 
-    printf("\nNumero da linha: %d\n", buf->numLinha);
-    printf("\nTamanho da linha: %d\n", buf->tamLinha);
-
-    buf->pos = 0;
-   
-    for (int i = 0; i < buf->tamLinha; i++){
-      c = get_next_char(buf);
-      printf("%c", c);
-    }
-
-  } while (tam != NULL);
+    printf("%c", c);
+    
+  } while (c != EOF);
   
   deallocate_buffer(buf);
   printf("\nOIOIOIOIO");

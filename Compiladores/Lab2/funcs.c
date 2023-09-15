@@ -19,22 +19,25 @@ pBuffer allocate_buffer () {
 
 
 char get_next_char(pBuffer buf){
-    //printf("%d", buf->pos);
+    
+    char c;
 
-    char *tam;
+    c = buf->buffer[buf->pos];
+
     int cont = 0;
 
-
-    if (buf->pos >= BUFFER_SIZE) {
-        return '\0';  // Retorne algum valor para indicar que não há mais caracteres para ler
-    }
-
-    if (buf->buffer[buf->pos] == '\n') {
+    if (c == '\n') {
+        buf->pos = 0;
         buf->numLinha++;
-        return '\n';
+        // get_next_block(buffer, fp);
+    } else if (buf->pos == 255){
+        buf->pos = 0;
+        //get_next_block(buffer, fp);
     } else {
-        return buf->buffer[buf->pos++];
+        buf->pos++;
     }
+
+    return c;
 }
 
 
