@@ -36,8 +36,6 @@ int main(int argc, char *argv[]) {
   buf->numLinha = 1;
   buf->pos = 0;
 
-  get_next_block(buf, arquivo);
-
   do {
   
     c = get_next_char(buf, arquivo);

@@ -33,6 +33,16 @@ char get_next_char(pBuffer buf, FILE *arq){
     char c;
     char * str;
 
+    static int flag = 0;  // Só será executada uma vez
+
+    if (flag == 0) {
+        str = get_next_block(buf, arq);
+        if (str == NULL){
+            return EOF;
+        }
+        flag = 1;
+    }
+
     c = buf->buffer[buf->pos];
 
     int cont = 0;
