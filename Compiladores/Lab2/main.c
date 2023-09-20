@@ -33,19 +33,25 @@ int main(int argc, char *argv[]) {
     exit(1);
   }
 
-  buf->numLinha = 0;
+  buf->numLinha = 1;
   buf->pos = 0;
+
+  get_next_block(buf, arquivo);
 
   do {
   
-    c = get_next_char(buf);
+    c = get_next_char(buf, arquivo);
 
     printf("%c", c);
+
+    if (c == '>'){
+        printf("\n\n ===> Caracter {%c} invalido na linha %d e na posicao %d\n", c, buf->numLinha, buf->pos);
+    }
     
-  } while (c != EOF);
+  } while (c != EOF && c != '>');
   
   deallocate_buffer(buf);
-  printf("\nOIOIOIOIO");
+
   fclose(arquivo);
 
 }

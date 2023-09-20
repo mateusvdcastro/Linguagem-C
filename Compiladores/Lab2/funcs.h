@@ -12,7 +12,9 @@ typedef struct
 
 typedef Buffer *pBuffer;
 
-char get_next_char(pBuffer buf);
+char get_next_char(pBuffer buf, FILE *arq);
+
+char * get_next_block(pBuffer buf, FILE *arq);
 
 pBuffer allocate_buffer ();
 
