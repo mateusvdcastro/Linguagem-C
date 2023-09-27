@@ -33,9 +33,10 @@ int main(int argc, char *argv[]) {
   for (int i = 0; i < atoi(argv[2]); i++) {
     if ((c = fgetc(arquivo)) != EOF){
       buf->buffer[i] = c;
-      buf->buffer[i+1] = '\0';
+      //buf->buffer[i+1] = '\0';
     }
   }
+  
   buf->buffer[atoi(argv[2])] = '\0';
   
   //printf("%s", buf->buffer);
