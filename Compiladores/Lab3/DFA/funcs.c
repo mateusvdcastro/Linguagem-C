@@ -6,7 +6,6 @@
 
 #define BUFFER_SIZE 256
 
-
 pBuffer allocate_buffer () {
 
     pBuffer buf = NULL;
@@ -14,6 +13,23 @@ pBuffer allocate_buffer () {
     buf = (pBuffer)malloc(sizeof(Buffer));
 
     return buf;
+}
+
+pLexema allocate_lexema () {
+
+    pLexema lex = NULL;
+
+    lex = (pLexema)malloc(sizeof(Lexema));
+
+    return lex;
+}
+
+void print_lex (pLexema lex) {
+    
+    printf("Linha: %d, Lexema: %s, Token: %d\n\n", lex->numLinha, lex->buffer, lex->token);
+
+    memset(lex->buffer, '\0', sizeof(lex->buffer));
+
 }
 
 char * get_next_block(pBuffer buf, FILE *arq){
