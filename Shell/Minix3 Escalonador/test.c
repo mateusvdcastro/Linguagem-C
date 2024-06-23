@@ -51,18 +51,18 @@ int main(int argc, char **argv) {
                                 gettimeofday(&p_start, NULL);
                                 for(i=0; i<cpu_ops; i++)
 {
-                                        x = (x << 4) - (x << 4);
+                                        x = (x << 4) - (x << 4);  // << faz shift left, neste caso 4 bits. Ou seja, se x é 1 então x << 4 é 16. Pois 1 é 0001 em binário e 16 é 10000 em binário. 
                                 }
                                 gettimeofday(&p_end, NULL);
                                 timersub(&p_end, &p_start, &p_time);
                                 printf("CPU\t %d\t %g\n",num, SEC(p_time));
                         }
-                        exit(0); // todo filho termina aqui ...
+                        exit(0); // todo filho termina aqui. exit é uma chamada de sistema que termina o processo.
                 }
         }
         // pai apenas aguarda o termino dos filhos
         for(i=0; i<nproc; i++) {
-                int pid_p=wait(NULL);
+                int pid_p=wait(NULL); // wait é uma chamada de sistema que espera o término de um processo filho. E retorna o pid do processo filho que terminou.
         }
         return 0;
 }

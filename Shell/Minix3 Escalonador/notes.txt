@@ -1,0 +1,27 @@
+#O que são:
+
+Processos IO-bound:
+
+    São processos que passam a maior parte do seu tempo esperando por operações de entrada/saída (IO).
+    Exemplos: Processos que leem e escrevem em arquivos, interagem com dispositivos de rede, ou esperam por entradas de usuário.
+    Característica principal: Tempo de espera por IO é significativamente maior do que o tempo de uso da CPU.
+
+Processos CPU-bound:
+
+    São processos que demandam intensamente o uso da CPU, realizando muitos cálculos e operações computacionais.
+    Exemplos: Processamento de imagens, simulações científicas, criptografia.
+    Característica principal: Tempo de uso da CPU é significativamente maior do que o tempo de espera por IO.
+
+#O que fazem:
+
+Processos IO-bound:
+
+    Executam operações de IO frequentes e geralmente precisam de menos tempo de CPU.
+    Eles podem ser bloqueados frequentemente enquanto aguardam a conclusão das operações de IO.
+    São ideais para sistemas multitarefa onde podem liberar a CPU enquanto aguardam IO, permitindo que outros processos usem a CPU nesse meio tempo.
+
+Processos CPU-bound:
+
+    Executam operações computacionais intensivas e demandam muito tempo de CPU.
+    Eles tendem a utilizar a CPU de forma contínua até que terminem suas operações.
+    São adequados para tarefas que requerem muitos cálculos e pouca interação com dispositivos de IO.
