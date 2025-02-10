@@ -1,4 +1,3 @@
-// Eduardo Verissmo Faccio - 148859
 // Tarefa Tabela Hash
 
 #include <stdio.h>

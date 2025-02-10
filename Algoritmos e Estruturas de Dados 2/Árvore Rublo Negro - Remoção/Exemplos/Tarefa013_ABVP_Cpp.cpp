@@ -1,6 +1,4 @@
 /*
-
-Eduardo Verissimo Faccio - 148859
 Tarefa 13 - Arvore Binaria Rubro Negra
 
 TAD de autoria do site abaixo:

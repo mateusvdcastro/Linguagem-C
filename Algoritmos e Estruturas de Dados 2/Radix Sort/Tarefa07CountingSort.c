@@ -1,4 +1,3 @@
-//Eduardo Verissimo Faccio - 148859 - IA
 //Tarefa 7 - Palavras Ordenadas V 2.0
 
 #include <stdio.h>

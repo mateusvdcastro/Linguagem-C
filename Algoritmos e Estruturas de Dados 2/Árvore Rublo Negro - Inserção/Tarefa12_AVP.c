@@ -1,4 +1,3 @@
-//Eduardo Verissimo Faccio - 148859 - AED2
 //Implementa��o Arvore Rubro Negra
 
 //TAD de ABB utilizada com base na aula da UNIVESP
